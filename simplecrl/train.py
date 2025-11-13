@@ -2,10 +2,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
-
-    
-def info_nce_loss(self, features):
-
+def info_nce_loss(features, temperature, device):
     batch_size = features.shape[0] // 2
     
     # Normalize features
@@ -41,7 +38,6 @@ def info_nce_loss(self, features):
     loss = criterion(logits, labels)
     
     return loss
-
 
 def train_epoch(model, train_loader, optimizer, temperature, device):
     """Train for one epoch"""
