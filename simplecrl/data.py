@@ -51,4 +51,3 @@ def get_cifar10_dataloaders(batch_size=256, num_workers=4):
     )
     
     return train_loader
-
