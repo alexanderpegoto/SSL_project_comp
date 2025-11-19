@@ -17,6 +17,9 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Node: $SLURM_NODELIST"
 echo "Start time: $(date)"
 
+# Initialize conda properly
+source /scratch/ap9283/miniconda3/etc/profile.d/conda.sh
+
 # Activate environment
 conda activate ssl
 
