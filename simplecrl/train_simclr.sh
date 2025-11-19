@@ -17,10 +17,6 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Node: $SLURM_NODELIST"
 echo "Start time: $(date)"
 
-# Load conda
-module purge
-eval "$(conda shell.bash hook)"
-
 # Activate environment
 conda activate ssl
 
