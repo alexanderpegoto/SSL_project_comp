@@ -10,11 +10,28 @@
 #SBATCH --output=/scratch/ap9283/deep_learning/logs/simclr_%j.out
 #SBATCH --error=/scratch/ap9283/deep_learning/logs/simclr_%j.err
 #SBATCH --requeue
+#SBATCH --exclude=b-9-61
 
-source /scratch/ap9283/env.sh
+# Print job info
+echo "Job ID: $SLURM_JOB_ID"
+echo "Node: $SLURM_NODELIST"
+echo "Start time: $(date)"
+
+# Load conda
+module purge
+eval "$(conda shell.bash hook)"
+
+# Activate environment
 conda activate ssl
 
+# Navigate to project directory
 cd /scratch/ap9283/deep_learning/SSL_project_comp/simplecrl
 
+# Verify we're in the right place
+echo "Working directory: $(pwd)"
+ls -la
+
+# Run training
 python main.py
 
+echo "End time: $(date)"
