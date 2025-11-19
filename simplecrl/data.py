@@ -46,7 +46,7 @@ def get_cifar10_dataloaders(batch_size=256, num_workers=4):
         shuffle=True,
         num_workers=num_workers,
         pin_memory=True,
-        drop_last=True  # Important for SimCLR!
+        drop_last=True  
     )
     
     return train_loader
@@ -66,7 +66,7 @@ class CompetitionDataset(Dataset):
         self.dataset = load_dataset(
             "tsbpp/fall2025_deeplearning",
             split='train',
-            cache_dir=cache_dir  # Specify where to save
+            cache_dir=cache_dir
         )
         
         self.transform = transform
@@ -99,7 +99,7 @@ def get_competition_dataloaders(data_path, batch_size=256, num_workers=4, image_
     """
     # Training data with SimCLR augmentations
     train_dataset = CompetitionDataset(
-        data_path=data_path,
+        cache_dir=data_path,
         transform=SimCLRDataTransform(size=image_size)
     )
     
