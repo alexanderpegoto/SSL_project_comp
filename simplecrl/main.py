@@ -43,8 +43,8 @@ def main():
     temperature = 0.5
     
     # Cache directory for downloaded data
-    cache_dir = '/scratch/ap9283/deep_learning/data'
-    os.makedirs(cache_dir, exist_ok=True)
+    data_dir = '/scratch/ap9283/deep_learning/data/extracted/train'
+    os.makedirs(data_dir, exist_ok=True)
     
     # Cache directory for downloaded data
     save_dir = '/scratch/ap9283/deep_learning/SSL_project_comp/simplecrl/checkpoints'
@@ -61,7 +61,7 @@ def main():
     )
     # Data
     train_loader = get_competition_dataloaders(
-        data_path=cache_dir,
+        data_path=data_dir,
         batch_size=batch_size,
         num_workers=4,
         image_size=96
