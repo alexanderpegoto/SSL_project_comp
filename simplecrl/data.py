@@ -57,7 +57,14 @@ class SimCLRImageFolder(ImageFolder):
 
     def __getitem__(self, index):
         path, _ = self.samples[index]
-        image = Image.open(path).convert("RGB")
+
+        try:
+            image = Image.open(path).convert("RGB")
+        except Exception as e:
+            # Handle corruption by returning another sample
+            # You can also skip, but best is to retry with a random index
+            new_index = np.random.randint(0, len(self.samples))
+            return self.__getitem__(new_index)
 
         view1, view2 = self.transform(image)
         return (view1, view2), 0
