@@ -71,7 +71,7 @@ def main(args):
     model.load_state_dict(checkpoint['model_state_dict'])
     print(f'Loaded checkpoint from epoch {checkpoint["epoch"]} with loss {checkpoint["loss"]:.4f}')
     
-    # Data transforms (NO augmentation for evaluation!)
+    # Data transforms
     transform = transforms.Compose([
     transforms.Resize((96,96)),
     transforms.ToTensor(),
@@ -114,7 +114,7 @@ def main(args):
         best_val = -1.0
 
         # k-NN sweep
-        for k in [1, 5, 10, 20, 50, 100]:
+        for k in [1, 5, 10, 20, 50, 100, 200]:
             train_acc, val_acc = knn_evaluate(train_features, train_labels,
                                             val_features,   val_labels, k=k)
             print(f"k={k:3d}: Train {train_acc*100:.2f}%, Val {val_acc*100:.2f}%")
