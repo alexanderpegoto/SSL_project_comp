@@ -14,40 +14,32 @@ from data import CSVImageDataset
 
 
 def extract_features(model, dataloader, device):
-    """Extracting features from the encoder"""
-    
     model.eval()
-    all_features = []
-    all_labels = []
-    
-    with torch.no_grad():
-        for images,labels in tqdm(dataloader, desc='Extracting Features'):
-            images = images.to(device)
-            
-            # get encoder features
-            features, _ =  model(images)
-            features = F.normalize(features, dim=1)
-            all_features.append(features.cpu().numpy())
-            all_labels.append(labels.numpy())
-            
-    # Concatenate all batches
-    
-    features = np.concatenate(all_features, axis=0)
-    labels = np.concatenate(all_labels, axis=0)
-    
-    return features, labels
+    feats, labels = [], []
 
-def extract_features_unlabeled(model, dataloader, device):
-    model.eval()
-    all_features = []
     with torch.no_grad():
-        for images in tqdm(dataloader, desc="Extracting Test Features"):
+        for images, lbls in tqdm(dataloader):
             images = images.to(device)
-            features, _ = model(images)
-            features = F.normalize(features, dim=1)
-            all_features.append(features.cpu().numpy())
-    features = np.concatenate(all_features, axis=0)
-    return features
+            f, _ = model(images)
+            f = F.normalize(f, dim=1)
+            feats.append(f.cpu().numpy())
+            labels.append(lbls.numpy())
+
+    return np.concatenate(feats), np.concatenate(labels)
+
+def extract_features_test(model, dataloader, device):
+    model.eval()
+    feats, names = [], []
+
+    with torch.no_grad():
+        for images, fnames in tqdm(dataloader):
+            images = images.to(device)
+            f, _ = model(images)
+            f = F.normalize(f, dim=1)
+            feats.append(f.cpu().numpy())
+            names.extend(fnames)
+
+    return np.concatenate(feats), names
 
 
 def knn_evaluate(train_features, train_labels, test_features, test_labels, k=200):

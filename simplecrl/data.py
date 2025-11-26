@@ -136,16 +136,8 @@ def get_competition_dataloaders(data_path, batch_size=256, num_workers=4, image_
     
     return train_loader
 
-
 class CSVImageDataset(Dataset):
-    def __init__(self, root_dir, img_subdir, csv_path,
-                 transform=None, has_labels=True):
-        """
-        root_dir: e.g. /scratch/.../data/test1
-        img_subdir: "train", "val", or "test"
-        csv_path: full path to train_labels.csv / val_labels.csv / test_images.csv
-        has_labels: True for train/val, False for test
-        """
+    def __init__(self, root_dir, img_subdir, csv_path, transform=None, has_labels=True):
         self.root_dir = root_dir
         self.img_dir = os.path.join(root_dir, img_subdir)
         self.df = pd.read_csv(csv_path)
@@ -157,7 +149,7 @@ class CSVImageDataset(Dataset):
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        fname = row["filename"]  # column name in all CSVs
+        fname = row["filename"]
         img_path = os.path.join(self.img_dir, fname)
 
         img = Image.open(img_path).convert("RGB")
@@ -165,8 +157,7 @@ class CSVImageDataset(Dataset):
             img = self.transform(img)
 
         if self.has_labels:
-            label = int(row["class_id"]) # use class_id as label
+            label = int(row["class_id"])   # ONLY use class_id
             return img, label
         else:
-            # unlabeled - just return the image 
-            return img
+            return img, fname              # For test mode
