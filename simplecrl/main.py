@@ -43,7 +43,7 @@ def main():
     temperature = 0.5
     
     # Cache directory for downloaded data
-    data_dir = '/scratch/ap9283/deep_learning/data/extracted'
+    data_dir = '/scratch/ap9283/deep_learning/data/train/extracted/'
     os.makedirs(data_dir, exist_ok=True)
     
     # Cache directory for downloaded data
