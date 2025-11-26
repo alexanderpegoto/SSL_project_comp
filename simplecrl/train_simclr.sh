@@ -1,12 +1,10 @@
 #!/bin/bash
 
 #SBATCH --account=csci_ga_2572-2025fa
-#SBATCH --partition=g2-standard-12
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=32GB
+#SBATCH --partition=c12m85-a100-1
+#SBATCH --gres=gpu
 #SBATCH --time=12:00:00
-#SBATCH --job-name=simclr_train
+#SBATCH --job-name=simclr_a100
 #SBATCH --output=/scratch/ap9283/deep_learning/logs/simclr_%j.out
 #SBATCH --error=/scratch/ap9283/deep_learning/logs/simclr_%j.err
 #SBATCH --requeue
