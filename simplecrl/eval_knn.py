@@ -88,7 +88,7 @@ def main(args):
     
 # ----- Build datasets -----
     # For tuning k (train + val mode)
-    if args.mode == "train":
+    if args.mode == "val":
         train_dataset = CSVImageDataset(
             root_dir=args.data_root,
             img_subdir="train",
