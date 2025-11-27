@@ -139,6 +139,7 @@ def main(args):
             root_dir=args.data_root,
             img_subdir="test",
             csv_path=os.path.join(args.data_root, "test_images.csv"),
+            transform=transform,
             has_labels=False,
         )
         

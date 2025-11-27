@@ -157,7 +157,7 @@ class CSVImageDataset(Dataset):
             img = self.transform(img)
 
         if self.has_labels:
-            label = int(row["class_id"])   # ONLY use class_id
+            label = int(row["class_id"]) 
             return img, label
         else:
-            return img, fname              # For test mode
+            return img, fname
