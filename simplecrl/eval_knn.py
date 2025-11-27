@@ -130,15 +130,15 @@ def main(args):
     elif args.mode == "test":
         train_dataset = CSVImageDataset(
             root_dir=args.data_root,
-            img_subdir=args.train_dir,
-            csv_path=os.path.join(args.data_root, args.train_csv),
+            img_subdir="train",
+            csv_path=os.path.join(args.data_root, "train_labels.csv"),
             transform=transform,
             has_labels=True,
         )
         test_dataset = CSVImageDataset(
             root_dir=args.data_root,
-            img_subdir=args.test_dir,
-            csv_path=os.path.join(args.data_root, args.test_csv),
+            img_subdir="test",
+            csv_path=os.path.join(args.data_root, "test_labels.csv"),
             has_labels=False,
         )
         
