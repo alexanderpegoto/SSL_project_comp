@@ -150,7 +150,7 @@ def main(args):
         train_features, train_labels = extract_features(model, train_loader, device)
 
         print("Extracting test features...")
-        test_features = extract_features_unlabeled(model, test_loader, device)
+        test_features = extract_features_test(model, test_loader, device)
 
         print(f"\nTrain features shape: {train_features.shape}")
         print(f"Test features shape:  {test_features.shape}")
